@@ -6,15 +6,18 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
+    <% if current_user %>
+      <span class="nav-text"><%= current_user.nickname %></span>
+      <%= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link' %>
+    <% else %>
+      <div class="dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Login
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarLogin">
           <%= link_to 'Github', '/auth/github', class: 'dropdown-item' %>
         </div>
-      </li>
-    </ul>
+      </div>
+    <% end %>
   </div>
 </nav>
