@@ -1,8 +1,8 @@
 development:
   oauth:
     github:
-      _secure_id: b567639aef9988970767
-      _secure_secret: f7f6f58552328bec0b0d035adb811beda8fbc296
+      _secure_id: zxPUvfzpKMLgvng1BFp7vyc0XQscKaaLySAzg4pYknjjZ8m7zN8DbzLC0CneEWuEcuokAbgAxDLXtYaGl2u8Ty6fJywedrLF1pydttqRKcGvRGh8UnGISnvCNb5bUUFvE2TdeiDj6McjcW455WGz7G2EGs7m6GeolKpj1U4mIo52Zbx+blDrjnlaIb7IpMkTzGwLgy3TMwonwMooRTCA0WuqZQyO1B/HHQcNVnMfAa3aafa1seTEVOVr2dVxvvuQodtUQQkbGNc2eoimWvMU5C3eMVv6cDpmr9Ucmv9qAltKGCbA+xDS0+tp1pM5DNyHeoMWN2Haaz6Kit8+BSlkyg==
+      _secure_secret: avrOJHfusS2dKTkncV+vcgRhr3X6S6ZVkcbTbdGIJugdBI6FYNnENZrrNoqMZLILzlChmqAhBA9233H4oZ7ao2vKkCkwmowiGHvCKYnjfRlhzstlRV0gY1VnE9PlPyxBLMk8lL24XOKOoyMl9qJMGJmBPL4OvrI8nXfHVMGIWsB3i/zIo8+SZS4CoxnIad5j4Czc4ybeSb2MozxyhLdIodxkYokeIlODYNFMVZw+qfjoFMRXraW6o6eLy9eHzfUXeFAaWhKwsY0aN7xzY1jGw2i0hsWTDjK5kU+P6vwVsjKC1cwI7hc4PC+IgC6rYlcYuuhv82VDBiI/rXGUFLM3+A==
 
 test:
   oauth:
