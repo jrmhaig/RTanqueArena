@@ -1,14 +1,17 @@
 development:
-  setting:                development_value
-  # The following will become 'secure_setting'
-  _secure_secure_setting: secure_development_value
+  oauth:
+    github:
+      _secure_id: b567639aef9988970767
+      _secure_secret: f7f6f58552328bec0b0d035adb811beda8fbc296
 
 test:
-  setting:                test_value
-  # The following will become 'secure_setting'
-  _secure_secure_setting: secure_test_value
+  oauth:
+    github:
+      id: TEST
+      secret: TEST
 
 production:
-  setting:                production_value
-  # The following will become 'secure_setting'
-  _secure_secure_setting: secure_production_value
+  oauth:
+    github:
+      id: TODO
+      secret: TODO
