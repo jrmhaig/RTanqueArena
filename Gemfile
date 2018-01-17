@@ -34,6 +34,8 @@ gem 'chamber', '~> 2.11'
 gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'jquery-rails'
 gem 'omniauth-github'
+gem 'webpacker'
+gem 'react-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
