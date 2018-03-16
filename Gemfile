@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'chamber', '~> 2.11'
-gem 'bootstrap', '~> 4.0.0.beta3'
+gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'omniauth-github'
 gem 'webpacker'
