@@ -6,17 +6,28 @@ export default class Arena extends React.Component {
     width: 1200,
     height: 700,
     border: 15.0,
-    ratio: 500 / 500,
-    //ratio: this.props.arenaHeight / this.props.arenaWidth,
+    ratio: this.props.arenaHeight / this.props.arenaWidth,
     scale: d3.scaleLinear()
-              //.domain([-15, this.props.arenaWidth + 15])
-              .domain([-15, 500 + 15])
+              .domain([-15, this.props.arenaWidth + 15])
               .range([0, 1200])
   };
 
   componentDidMount() {
     this.battle();
+    this.updateDimensions();
   }
+
+  updateDimensions = () => {
+    this.setState({
+      width: this.bound.offsetWidth,
+      height: this.state.ratio * this.bound.offsetWidth,
+      ratio: this.bound.offsetWidth / (this.props.arenaWidth + 2 * this.state.border),
+      scale: d3.scaleLinear()
+                .domain([-this.state.border, this.props.arenaWidth + this.state.border])
+                .range([0, this.bound.offsetWidth])
+    });
+  }
+
 
   battle = () => {
     const node = this.node;
@@ -41,7 +52,7 @@ export default class Arena extends React.Component {
 
     shells.exit().remove();
 
-    setTimeout(this.battle, 500);
+    setTimeout(this.battle, 100);
   }
 
   render() {

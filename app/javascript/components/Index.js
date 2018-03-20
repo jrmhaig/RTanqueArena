@@ -26,27 +26,39 @@ class Index extends React.Component {
       this.setState({ i: 0 });
     }
     return this.state.battle[this.state.i];
-    return {
-      "shells": [
-        { "x": 100, "y": 200 },
-        { "x": 200, "y": 100 },
-        { "x": 300, "y": 250 }
-      ]
-    }
   }
 
-  render () {
+  newBattle = () => {
+    var self = this;
+    $.ajax({
+      type: "GET",
+      url: "api/battle",
+      contentType: "application/json",
+      success: function(data) {
+        self.setState({
+          i: 0,
+          battle: data
+        });
+      }.bind(self),
+      error: function(xhr, status, err) {
+        console.error(status, err.toString());
+        alert("Failed to load battle");
+      }
+    });
+  }
+
+  render() {
     console.log(this.props.user);
     return (
       <React.Fragment>
         <div className="row">
           <div className="col">
-            Left
+            <button type="submit" onClick={this.newBattle}>Start</button>
           </div>
           <div className="col-6">
             <div className="jumbottron">
               <p>Please authenticate with Github.</p>
-              <Arena getFrame={this.getFrame} />
+              <Arena getFrame={this.getFrame} arenaHeight={700} arenaWidth={1200} />
             </div>
           </div>
           <div className="col">
