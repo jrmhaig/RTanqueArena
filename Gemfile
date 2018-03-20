@@ -31,6 +31,9 @@ gem 'jquery-rails'
 gem 'omniauth-github'
 gem 'webpacker'
 gem 'react-rails'
+gem 'rtanque', git: 'https://github.com/awilliams/RTanque', branch: '0.2'
+gem 'rtanque-json', path: '../RTanque-json'
+gem 'd3-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
