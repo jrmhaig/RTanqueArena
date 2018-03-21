@@ -9,10 +9,11 @@ GIT
       octokit (~> 4.8.0)
       thor (~> 0.20.0)
 
-PATH
-  remote: ../RTanque-json
+GIT
+  remote: https://github.com/jrmhaig/RTanque-data
+  revision: 69bbe0b5416d7b219572b3c4134843b2447f6998
   specs:
-    rtanque-json (0.2.0)
+    rtanque-data (0.2.0)
       rtanque (~> 0.2.0)
 
 GEM
@@ -290,7 +291,7 @@ DEPENDENCIES
   react-rails
   rspec-rails (~> 3.7)
   rtanque!
-  rtanque-json!
+  rtanque-data!
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

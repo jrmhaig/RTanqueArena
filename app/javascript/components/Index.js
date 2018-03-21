@@ -9,13 +9,28 @@ class Index extends React.Component {
 
   state = {
     battle: [
-      { "shells": [ { "x": 100, "y": 200 } ] },
-      { "shells": [ { "x": 110, "y": 190 } ] },
-      { "shells": [ { "x": 120, "y": 180 } ] },
-      { "shells": [ { "x": 130, "y": 170 } ] },
-      { "shells": [ { "x": 140, "y": 160 } ] },
-      { "shells": [ { "x": 150, "y": 150 } ] },
-      { "shells": [ { "x": 160, "y": 140 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 100, "y": 200 } ]
+      },
+      {
+        "bots": [],
+        "shells": [ { "x": 110, "y": 190 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 120, "y": 180 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 130, "y": 170 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 140, "y": 160 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 150, "y": 150 } ] },
+      {
+        "bots": [],
+        "shells": [ { "x": 160, "y": 140 } ] },
     ],
     i: 0
   }
@@ -48,7 +63,6 @@ class Index extends React.Component {
   }
 
   render() {
-    console.log(this.props.user);
     return (
       <React.Fragment>
         <div className="row">

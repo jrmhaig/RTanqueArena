@@ -12,7 +12,7 @@ class Api::BattleController < ApplicationController
     runner = RTanque::Runner.new(
       width: 1200,
       height: 700,
-      screen: 'json',
+      screen: 'data',
       max_ticks: Float::INFINITY,
       teams: false
     )

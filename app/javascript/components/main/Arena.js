@@ -36,6 +36,11 @@ export default class Arena extends React.Component {
 
     var svg = d3.select(node);
     var shells = svg.selectAll("circle.shell").data(line["shells"]);
+    var bodies = svg.selectAll("image.body").data(line["bots"]);
+    var turrets = svg.selectAll("image.turret").data(line["bots"]);
+    var radars = svg.selectAll("image.radar").data(line["bots"]);
+    var names = svg.selectAll("text").data(line["bots"]);
+    var healths = svg.selectAll("rect").data(line["bots"]);
 
     // self.state is not yet defined
     shells
@@ -49,10 +54,65 @@ export default class Arena extends React.Component {
       .attr("fill", "black")
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
-
     shells.exit().remove();
 
-    setTimeout(this.battle, 100);
+    healths
+      .attr("x", function(d) { return self.state.scale(d.x - 50) })
+      .attr("y", function(d) { return self.state.scale(30 + d.y); })
+      .attr("width", function(d) { return self.state.scale(d.health) });
+    healths
+      .enter()
+      .append("rect")
+      .style("fill", "red")
+      .attr("height", self.state.scale(10));
+    healths.exit().remove();
+
+    names
+      .text(function(d) { return d.name; })
+      .attr("x", function(d) { return self.state.scale(d.x); })
+      .attr("y", function(d) { return self.state.scale(d.y - 30); });
+    names
+      .enter()
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", self.state.scale(18) + "px")
+      .attr("fill", "red");
+    names.exit().remove();
+
+    this.battle_update(bodies, 18, 18)
+      .attr("transform", function(d) { return "rotate("+(180 - d.heading)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
+    this.battle_update(turrets, 10, 30)
+      .attr("transform", function(d) { return "rotate("+(180 - d.turret)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
+    this.battle_update(radars, 11, 8)
+      .attr("transform", function(d) { return "rotate("+(180 - d.radar)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
+    this.battle_enter(bodies, "body", "../images/body.png", 18, 18);
+    this.battle_enter(turrets, "turret", "../images/turret.png", 10, 30);
+    this.battle_enter(radars, "radar", "../images/radar.png", 11, 8);
+    bodies.exit().remove();
+    turrets.exit().remove();
+    radars.exit().remove();
+
+    setTimeout(this.battle, 5);
+  }
+
+  battle_update = (item, x_offset=0, y_offset=0) => {
+    var self = this;
+    return item
+             .attr("x", function(d) { return self.state.scale(d.x - x_offset); })
+             .attr("y", function(d) { return self.state.scale(d.y - y_offset); })
+             .attr("width", self.state.ratio * 2 * x_offset)
+             .attr("height", self.state.ratio * 2 * y_offset);
+  }
+
+  battle_enter = (item, label, image, x_offset=0, y_offset=0) => {
+    var self = this;
+    return item.enter()
+             .append('svg:image')
+             .classed(label, true)
+             .attr('xlink:href', image)
+             .attr('x', function(d) { return self.state.scale(d.x - x_offset); })
+             .attr('y', function(d) { return self.state.scale(d.y - y_offset); });
   }
 
   render() {
@@ -60,7 +120,7 @@ export default class Arena extends React.Component {
       <React.Fragment>
         <div ref={input => this.bound = input} >
           <svg ref={node => this.node = node}
-            width={500} height={500} style={{"backgroundColor": "#cccccc"}} />
+            width={this.state.width} height={this.state.height} style={{"backgroundColor": "#cccccc"}} />
         </div>
       </React.Fragment>
     );
