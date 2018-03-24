@@ -11,25 +11,32 @@ class Index extends React.Component {
     battle: [
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 100, "y": 200 } ]
       },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 110, "y": 190 } ] },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 120, "y": 180 } ] },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 130, "y": 170 } ] },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 140, "y": 160 } ] },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 150, "y": 150 } ] },
       {
         "bots": [],
+        "explosions": [],
         "shells": [ { "x": 160, "y": 140 } ] },
     ],
     i: 0
@@ -60,6 +67,13 @@ class Index extends React.Component {
         alert("Failed to load battle");
       }
     });
+  }
+
+  showBots = () => {
+    if (this.state.battle["bots"].length === 0) {
+      return null;
+    }
+    return null;
   }
 
   render() {

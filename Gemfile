@@ -33,6 +33,7 @@ gem 'webpacker'
 gem 'react-rails'
 gem 'rtanque', git: 'https://github.com/awilliams/RTanque', branch: '0.2'
 gem 'rtanque-data', git: 'https://github.com/jrmhaig/RTanque-data'
+#gem 'rtanque-data', path: '../RTanque-data'
 gem 'd3-rails'
 
 # Use Capistrano for deployment

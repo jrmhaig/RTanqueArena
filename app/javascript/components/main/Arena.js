@@ -15,6 +15,11 @@ export default class Arena extends React.Component {
   componentDidMount() {
     this.battle();
     this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   updateDimensions = () => {
@@ -41,6 +46,7 @@ export default class Arena extends React.Component {
     var radars = svg.selectAll("image.radar").data(line["bots"]);
     var names = svg.selectAll("text").data(line["bots"]);
     var healths = svg.selectAll("rect").data(line["bots"]);
+    var explosions = svg.selectAll("image.explosion").data(line["explosions"]);
 
     // self.state is not yet defined
     shells
@@ -79,6 +85,17 @@ export default class Arena extends React.Component {
       .attr("font-size", self.state.scale(18) + "px")
       .attr("fill", "red");
     names.exit().remove();
+
+    explosions.enter()
+      .append('svg:image')
+      .classed("explosion", true)
+      .attr('x', function(d) { return self.state.scale(d.x - 64); })
+      .attr('y', function(d) { return self.state.scale(d.y - 64); })
+      .attr("width", self.state.ratio * 2 * 64)
+      .attr("height", self.state.ratio * 2 * 64);
+    explosions
+      .attr('xlink:href', function(d) { return "../images/explosions/explosion2-" + d.explosion + ".png" } );
+    explosions.exit().remove();
 
     this.battle_update(bodies, 18, 18)
       .attr("transform", function(d) { return "rotate("+(180 - d.heading)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
