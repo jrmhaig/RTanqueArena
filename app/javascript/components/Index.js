@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Arena from "./main/Arena"
+import BotDetails from "./main/BotDetails"
 
 class Index extends React.Component {
   static propTypes = {
@@ -10,32 +11,81 @@ class Index extends React.Component {
   state = {
     battle: [
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 100, "y": 200 } ]
       },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 110, "y": 190 } ] },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 120, "y": 180 } ] },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 130, "y": 170 } ] },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 140, "y": 160 } ] },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 150, "y": 150 } ] },
       {
-        "bots": [],
+        "bots": [ {
+          "name": "Test",
+          "x": 300,
+          "y": 300,
+          "heading": 0,
+          "turret": 0,
+          "radar": 0
+        }],
         "explosions": [],
         "shells": [ { "x": 160, "y": 140 } ] },
     ],
@@ -43,9 +93,10 @@ class Index extends React.Component {
   }
 
   getFrame = () => {
-    this.setState({ i: this.state.i + 1 });
-    if (this.state.i >= this.state.battle.length) {
+    if (this.state.i + 1 >= this.state.battle.length) {
       this.setState({ i: 0 });
+    } else {
+      this.setState({ i: this.state.i + 1 });
     }
     return this.state.battle[this.state.i];
   }
@@ -69,11 +120,15 @@ class Index extends React.Component {
     });
   }
 
-  showBots = () => {
-    if (this.state.battle["bots"].length === 0) {
-      return null;
+  rightSidebar = () => {
+    if (!this.state.battle[this.state.i]["bots"]) {
+      return (<p>There are no bots!</p>);
     }
-    return null;
+      return (
+        <BotDetails
+          bots={this.state.battle[this.state.i]["bots"]}
+        />
+      )
   }
 
   render() {
@@ -90,7 +145,7 @@ class Index extends React.Component {
             </div>
           </div>
           <div className="col">
-            Right
+            {this.rightSidebar()}
           </div>
         </div>
       </React.Fragment>

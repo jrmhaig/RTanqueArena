@@ -5,10 +5,9 @@ export default class Arena extends React.Component {
   state = {
     width: 1200,
     height: 700,
-    border: 15.0,
     ratio: this.props.arenaHeight / this.props.arenaWidth,
     scale: d3.scaleLinear()
-              .domain([-15, this.props.arenaWidth + 15])
+              .domain([0, this.props.arenaWidth])
               .range([0, 1200])
   };
 
@@ -26,13 +25,11 @@ export default class Arena extends React.Component {
     this.setState({
       width: this.bound.offsetWidth,
       height: this.state.ratio * this.bound.offsetWidth,
-      ratio: this.bound.offsetWidth / (this.props.arenaWidth + 2 * this.state.border),
       scale: d3.scaleLinear()
-                .domain([-this.state.border, this.props.arenaWidth + this.state.border])
+                .domain([0, this.props.arenaWidth])
                 .range([0, this.bound.offsetWidth])
     });
   }
-
 
   battle = () => {
     const node = this.node;
@@ -47,8 +44,21 @@ export default class Arena extends React.Component {
     var names = svg.selectAll("text").data(line["bots"]);
     var healths = svg.selectAll("rect").data(line["bots"]);
     var explosions = svg.selectAll("image.explosion").data(line["explosions"]);
+    var botMarkers = svg.selectAll("circle.botMarker").data(line["bots"]);
 
-    // self.state is not yet defined
+    botMarkers
+      .attr("cx", function(d) { return self.state.scale(d.x); })
+      .attr("cy", function(d) { return self.state.scale(d.y); });
+
+    botMarkers.enter()
+      .append("circle")
+      .attr("r", function(d) { return self.state.scale(25); })
+      .attr("fill", "green")
+      .classed("botMarker", true)
+      .attr("cx", function(d) { return self.state.scale(d.x); })
+      .attr("cy", function(d) { return self.state.scale(d.y); });
+    botMarkers.exit().remove();
+
     shells
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
@@ -91,45 +101,43 @@ export default class Arena extends React.Component {
       .classed("explosion", true)
       .attr('x', function(d) { return self.state.scale(d.x - 64); })
       .attr('y', function(d) { return self.state.scale(d.y - 64); })
-      .attr("width", self.state.ratio * 2 * 64)
-      .attr("height", self.state.ratio * 2 * 64);
+      .attr("width", self.state.scale(64))
+      .attr("height", self.state.scale(64));
     explosions
       .attr('xlink:href', function(d) { return "../images/explosions/explosion2-" + d.explosion + ".png" } );
     explosions.exit().remove();
 
-    this.battle_update(bodies, 18, 18)
+    this.battle_update(bodies, 18, 19, 36, 38)
       .attr("transform", function(d) { return "rotate("+(180 - d.heading)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
-    this.battle_update(turrets, 10, 30)
+    this.battle_update(turrets, 10, 30, 20, 54)
       .attr("transform", function(d) { return "rotate("+(180 - d.turret)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
-    this.battle_update(radars, 11, 8)
+    this.battle_update(radars, 11, 8, 22, 16)
       .attr("transform", function(d) { return "rotate("+(180 - d.radar)+","+self.state.scale(d.x)+","+self.state.scale(d.y)+")"});
-    this.battle_enter(bodies, "body", "../images/body.png", 18, 18);
-    this.battle_enter(turrets, "turret", "../images/turret.png", 10, 30);
-    this.battle_enter(radars, "radar", "../images/radar.png", 11, 8);
+    this.battle_enter(bodies, "body", "../images/body.png");
+    this.battle_enter(turrets, "turret", "../images/turret.png");
+    this.battle_enter(radars, "radar", "../images/radar.png");
     bodies.exit().remove();
     turrets.exit().remove();
     radars.exit().remove();
 
-    setTimeout(this.battle, 5);
+    setTimeout(this.battle, 10);
   }
 
-  battle_update = (item, x_offset=0, y_offset=0) => {
+  battle_update = (item, x_offset=0, y_offset=0, width=1, height=1) => {
     var self = this;
     return item
              .attr("x", function(d) { return self.state.scale(d.x - x_offset); })
              .attr("y", function(d) { return self.state.scale(d.y - y_offset); })
-             .attr("width", self.state.ratio * 2 * x_offset)
-             .attr("height", self.state.ratio * 2 * y_offset);
+             .attr("width", self.state.scale(width))
+             .attr("height", self.state.scale(height));
   }
 
-  battle_enter = (item, label, image, x_offset=0, y_offset=0) => {
+  battle_enter = (item, label, image) => {
     var self = this;
     return item.enter()
              .append('svg:image')
              .classed(label, true)
-             .attr('xlink:href', image)
-             .attr('x', function(d) { return self.state.scale(d.x - x_offset); })
-             .attr('y', function(d) { return self.state.scale(d.y - y_offset); });
+             .attr('xlink:href', image);
   }
 
   render() {
