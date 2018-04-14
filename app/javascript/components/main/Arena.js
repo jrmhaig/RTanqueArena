@@ -47,26 +47,25 @@ export default class Arena extends React.Component {
     var botMarkers = svg.selectAll("circle.botMarker").data(line["bots"]);
 
     botMarkers
+      .attr("r", function(d) { return self.state.scale(30); })
+      .attr("fill", "green")
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
-
     botMarkers.enter()
       .append("circle")
-      .attr("r", function(d) { return self.state.scale(25); })
-      .attr("fill", "green")
       .classed("botMarker", true)
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
     botMarkers.exit().remove();
 
     shells
+      .attr("r", self.state.scale(5))
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
 
     shells.enter()
       .append("circle")
       .classed("shell", true)
-      .attr("r", 2)
       .attr("fill", "black")
       .attr("cx", function(d) { return self.state.scale(d.x); })
       .attr("cy", function(d) { return self.state.scale(d.y); });
@@ -75,25 +74,25 @@ export default class Arena extends React.Component {
     healths
       .attr("x", function(d) { return self.state.scale(d.x - 50) })
       .attr("y", function(d) { return self.state.scale(30 + d.y); })
+      .attr("height", self.state.scale(10))
       .attr("width", function(d) { return self.state.scale(d.health) });
     healths
       .enter()
       .append("rect")
-      .style("fill", "red")
-      .attr("height", self.state.scale(10));
+      .style("fill", "red");
     healths.exit().remove();
 
     names
       .text(function(d) { return d.name; })
+      .attr("text-anchor", "middle")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", self.state.scale(18) + "px")
+      .attr("fill", "red")
       .attr("x", function(d) { return self.state.scale(d.x); })
       .attr("y", function(d) { return self.state.scale(d.y - 30); });
     names
       .enter()
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", self.state.scale(18) + "px")
-      .attr("fill", "red");
+      .append("text");
     names.exit().remove();
 
     explosions.enter()
