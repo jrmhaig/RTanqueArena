@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Clear 5.1 -> 5.2 deprecation warnings
+  config.active_record.sqlite3.represent_boolean_as_integer = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
