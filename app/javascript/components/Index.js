@@ -2,6 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import Arena from "./main/Arena"
 import BotDetails from "./main/BotDetails"
+import {
+  Button,
+  ButtonToolbar
+} from "reactstrap"
 
 class Index extends React.Component {
   static propTypes = {
@@ -136,7 +140,14 @@ class Index extends React.Component {
       <React.Fragment>
         <div className="row">
           <div className="col">
-            <button type="submit" onClick={this.newBattle}>Start</button>
+            <ButtonToolbar>
+              <Button
+                color="info"
+                onClick={this.newBattle}
+              >
+                Start
+              </Button>
+            </ButtonToolbar>
           </div>
           <div className="col-6">
             <div className="jumbottron">
